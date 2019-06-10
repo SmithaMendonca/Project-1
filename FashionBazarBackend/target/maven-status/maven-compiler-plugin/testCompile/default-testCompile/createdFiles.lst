@@ -1,0 +1,5 @@
+com\ecomm\test\CategoryDAOTest.class
+com\ecomm\test\ProductDAOTest.class
+com\ecomm\test\SupplierDAOTest.class
+com\ecomm\test\GeneralTest.class
+com\ecomm\test\UserDAOTest.class

@@ -1,0 +1,98 @@
+<%@include file="Header.jsp"%>
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                    <div class="card">
+                        <div class="card-header">Register Here</div>
+                        <div class="card-body">
+                           <c:url value="/registration" var="url"></c:url>
+				             <form:form method="post" action="${url}" modelAttribute="user">                         
+                                <div class="form-group row">
+                                   <form:label path="customerName">Customer Name</form:label>                                  
+                                    <div class="col-md-6">
+                                        <form:input type="text" placeholder="Enter Customer Name.." class="form-control" path="customerName"></form:input>
+								             <form:errors path="customerName"></form:errors>                                       
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <form:label path="email">Email Id</form:label>	
+                                    <div class="col-md-6">
+                                        <form:input type="text" placeholder="Enter Email ID.." class="form-control" path="email"></form:input>
+											<form:errors path="users.emailId"></form:errors>                                        
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                     <form:label path="userName">User Name</form:label> 
+                                    <div class="col-md-6">
+                                        <form:input type="text" placeholder="Enter User Name.." class="form-control" path="userName"></form:input>
+								             <form:errors path="userName"></form:errors>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                   <form:label path="address">Address</form:label>	
+                                    <div class="col-md-6">
+                                        <form:input type="text" placeholder="Enter the Address.." class="form-control" path="address"></form:input>
+								             <form:errors path="userName"></form:errors>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <form:label path="password">Password</form:label>
+                                    <div class="col-md-6">
+                                        <form:input type="password" placeholder="********" class="form-control" path="password" id="pass"></form:input>
+                                        
+                                    </div>
+                                </div>
+								
+								 <div class="form-group row">
+                                    <label>Confirm Password</label>
+                                    <div class="col-md-6">
+                                        <input type="password" class="form-control" name="confirm-password" placeholder="********" id="confirmpass">
+                                    </div>
+                                </div>
+                                  
+                                  <div class="form-group row">
+                                     <form:hidden path="role" value="ROLE_USER"/>
+                                   </div>
+                                   
+                                  <div class="form-group row">
+                                     <form:hidden path="enabled" value="true"/>
+                                   </div>
+                                
+                                    <div class="col-md-6 offset-md-4">
+                                        <button type="submit" class="btn btn-primary" onclick="return Validate()">Register</button>
+                                    </div>
+                                    </form:form>
+                                </div>                           
+                        </div>
+                    </div>
+            </div>
+        </div>
+            
+  <!-- Validating Password -->	
+<script type="text/javascript">
+		
+function Validate() 
+{
+			
+    var password = document.getElementById("pass").value;
+		    
+    var confirmpass = document.getElementById("confirmpass").value;
+			
+    if (password != confirmpass) 
+     {
+				
+        alert("Password does Not Match.");				
+         return false;
+			
+     }			
+      return true;		
+}	
+</script>
+ 
+</body>
+</html>

@@ -1,0 +1,87 @@
+<%@include file="Header.jsp"%>
+<%@ page isELIgnored="false" %>
+ <section class="text-center">
+    <div class="container">
+        <h1>Your Ordered Items</h1>
+     </div>
+</section>
+<div class="container mb-4">
+    <div class="row">
+        <div class="col-12">
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col"> </th>
+                            <th scope="col">Product</th>
+                            <th scope="col">Available</th>
+                            <th scope="col" class="text-center">Quantity</th>
+                            <th scope="col" class="text-right">Price</th>
+                            <th scope="col" class="text-right">Total Price</th>
+                            <th> </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                      <c:forEach items="${cartItems}" var="cartItem"> 
+                        <tr>
+                            <form action="<c:url value="/updateCartItem/${cartItem.cartItemId}"/>" method="get">
+                            <tr>
+                            <td><img src="<c:url value="/resources/images/${cartItem.productId}.jpg"/>" width="30" height="30"/> </td>
+                            <td>${cartItem.productName}</td>
+                            <td>In stock</td>
+                            <td class="text-center">${cartItem.quantity}</td>
+                            <td class="text-right">${cartItem.price}</td>
+                             <td class="text-right">${cartItem.price * cartItem.quantity}</td>            
+                          </tr>  
+                            </form>
+                        </tr>
+                        </c:forEach>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>                        
+                            <td>Sub-Total</td>
+                            <td class="text-right">INR.${grandTotal}</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>                           
+                            <td><strong>Total</strong></td>
+                            <td class="text-right"><strong>INR.${grandTotal}</strong></td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col mb-2">
+            <div class="row">
+                <div class="col-sm-12  col-md-6">
+                     <a href="<c:url value="/showCart"/>" class="btn btn-block btn-light">Edit Cart</a>                
+                </div>
+                <div class="col-sm-12 col-md-6 text-right">
+                    <a href="<c:url value="/payment"/>" class="btn btn-block btn-light">Payment</a>
+                </div>
+            </div>
+            <form action="<c:url value="/updateAddr"/>" method="post">	
+            <div class="row">
+                <div class="col-sm-2 col-xs-12 col-md-2">
+                    <label id="addr1">Shipping Address</label>
+            	</div>
+            	 <div class="col-sm-8 col-xs-12 col-md-6">
+            	      <textarea cols="40" rows="3" name="addr">${addr}</textarea>
+            	 </div>
+                 <div class="col-sm-8 col-xs-12 col-md-10 text-center">
+                 	<input type="submit" value="Update Address" class="btn btn-primary"/>
+                 </div>	            	 
+        </div>
+        </form>
+    </div>
+    </div>
+   </div>
+  
+</body>
+</html>

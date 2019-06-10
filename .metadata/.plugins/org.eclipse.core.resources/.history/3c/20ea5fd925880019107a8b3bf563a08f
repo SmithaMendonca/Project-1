@@ -1,0 +1,31 @@
+package com.ecomm.dao;
+
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.ecomm.model.Queries;
+
+@Repository("queryDAO")
+@Transactional
+public class QueriesDAOImpl implements QueriesDAO 
+{
+	@Autowired
+	SessionFactory sessionFactory;
+	
+	@Override
+	public boolean addQuery(Queries queries) {
+		
+		try {
+			sessionFactory.getCurrentSession().save(queries);
+			return true;			
+		}
+		catch(Exception e) {
+			System.out.println("Error:"+e);
+			return false;			
+		}		
+		
+	}
+
+}

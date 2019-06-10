@@ -1,0 +1,99 @@
+package com.ecomm.controller;
+
+import java.util.Collection;
+import java.util.List;
+
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+
+import com.ecomm.dao.ProductDAO;
+import com.ecomm.dao.QueriesDAO;
+import com.ecomm.dao.UserDAO;
+import com.ecomm.model.Product;
+import com.ecomm.model.Queries;
+import com.ecomm.model.UserDetail;
+
+@Controller
+public class UserController 
+{
+	@Autowired
+	ProductDAO productDAO;
+	
+	@Autowired
+	UserDAO userDAO;
+	
+	@Autowired
+	QueriesDAO queriesDAO;
+	
+	@RequestMapping("/login_success")
+	public String loginSuccess(HttpSession session, Model m)
+	{
+		System.out.println("LOGIN Success");
+		
+		String page="";
+		boolean loggedIn=false;
+		
+	   SecurityContext sContext=SecurityContextHolder.getContext();
+	   Authentication authentication=sContext.getAuthentication();
+	   
+	   String username=authentication.getName();
+	   Collection<GrantedAuthority> roles=(Collection<GrantedAuthority>)authentication.getAuthorities();
+	   
+	   for(GrantedAuthority role:roles)
+	   {
+		 session.setAttribute("role", role.getAuthority());  
+		 
+		 if(role.getAuthority().equals("ROLE_ADMIN"))
+		 {
+			 loggedIn=true;
+			 page="AdminHome";
+			 session.setAttribute("loggedIn", loggedIn);
+			 session.setAttribute("username", username);
+		 }
+		 else
+		 {			 
+			 loggedIn=true;
+			 page="UserHome";
+			 session.setAttribute("loggedIn", loggedIn);
+			 session.setAttribute("username", username); 
+			 
+			 List<Product> productList=productDAO.getProductList();
+			 m.addAttribute("productList",productList);
+		 }
+	   }
+		return page;
+	}
+	
+	@RequestMapping(value="/registration",method=RequestMethod.POST)
+	public String registerUser(@ModelAttribute("user")UserDetail user,Model m)
+	{
+		System.out.println(">>>>Welcome User>>>>>");
+		
+		userDAO.registerUser(user);
+		
+	//	UserDetail user1= new UserDetail();
+	    m.addAttribute("user", new UserDetail());
+		
+		return "Login";
+	}
+	
+	@RequestMapping(value="/contact",method=RequestMethod.POST)
+	public String addQuery(@ModelAttribute("query")Queries query,Model m)
+	{
+		System.out.println(">>>>Thank You>>>>>");
+		
+		queriesDAO.addQuery(query);
+		return "AdminHome";
+	}
+}

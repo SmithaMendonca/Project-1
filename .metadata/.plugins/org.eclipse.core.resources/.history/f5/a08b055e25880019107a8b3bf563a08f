@@ -1,0 +1,13 @@
+package com.ecomm.dao;
+
+import com.ecomm.model.Queries;
+
+public class QueriesDAOImpl implements QueriesDAO {
+
+	@Override
+	public boolean addQuery(Queries queries) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+}

@@ -1,0 +1,10 @@
+package com.ecomm.model;
+
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "query")
+public class Queries {
+
+}

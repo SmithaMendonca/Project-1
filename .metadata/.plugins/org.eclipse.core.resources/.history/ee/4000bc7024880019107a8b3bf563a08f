@@ -1,0 +1,8 @@
+package com.ecomm.model;
+
+
+@Entity
+@Table(name = "query")
+public class Queries {
+
+}

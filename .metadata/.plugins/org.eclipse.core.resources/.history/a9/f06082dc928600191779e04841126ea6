@@ -1,0 +1,6 @@
+com\ecomm\controller\PaymentController.class
+com\ecomm\controller\ProductController.class
+com\ecomm\controller\CategoryController.class
+com\ecomm\controller\CartController.class
+com\ecomm\controller\PageController.class
+com\ecomm\controller\UserController.class

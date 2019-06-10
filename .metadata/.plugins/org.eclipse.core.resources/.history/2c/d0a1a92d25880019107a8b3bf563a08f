@@ -1,0 +1,7 @@
+package com.ecomm.dao;
+
+public interface QueriesDAO {
+	void addQuery(Queries queries);
+
+
+}
